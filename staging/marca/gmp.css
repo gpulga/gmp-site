@@ -1,0 +1,52 @@
+/* Marca do Gabriel's Media Portal, igual em todas as páginas do grupo.
+   Cada página define --gmp-bg, --gmp-bg2, --gmp-tx, --gmp-tx2 e --gmp-ln no :root.
+   Cabeçalho gruda no topo: rola 60px, encolhe, e o nome vira GMP. O planeta gira com a rolagem (gmp.js). */
+:root { --gmp-fixo: 56px; --gmp-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace; --gmp-serif: "IBM Plex Serif", Georgia, serif; }
+.gmp { position: sticky; top: -60px; z-index: 20; background: var(--gmp-bg); border-bottom: 3px double var(--gmp-ln); }
+.gmp a { color: inherit; text-decoration: none; }
+.gmp-faixa { height: 26px; background: var(--gmp-bg2); border-bottom: 1px solid var(--gmp-ln); font: 500 10.5px/26px var(--gmp-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--gmp-tx2); }
+.gmp-faixa-in { display: flex; gap: 18px; align-items: center; white-space: nowrap; overflow: hidden; }
+.gmp-faixa nav { display: flex; gap: 14px; }
+.gmp-faixa nav a:hover, .gmp-faixa nav a[aria-current] { color: var(--gmp-tx); }
+.gmp-faixa nav a[aria-current] { text-decoration: underline; text-underline-offset: 3px; }
+.gmp-faixa .gmp-ed { margin-left: auto; overflow: hidden; text-overflow: ellipsis; }
+.gmp-linha { height: 90px; display: flex; align-items: flex-end; justify-content: space-between; gap: 12px 24px; padding-bottom: 8px; }
+.gmp-logo { display: flex; align-items: flex-end; gap: 12px; min-width: 0; color: var(--gmp-tx); }
+.gmp-planeta { flex: none; width: 66px; height: 66px; transform-origin: 0 100%; transform: scale(calc(1 - var(--gmp-p, 0) * .4)); margin-right: calc(var(--gmp-p, 0) * -26px); }
+.gmp-planeta svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.gmp-planeta .anel { fill: none; stroke: var(--gmp-tx); stroke-width: 2.6; }
+.gmp-planeta .anel-vao { fill: none; stroke: var(--gmp-bg); stroke-width: 8; }
+.gmp-planeta .corpo { fill: var(--gmp-bg); }
+.gmp-planeta .borda { fill: none; stroke: var(--gmp-tx); stroke-width: 2.6; }
+.gmp-planeta .lat { fill: none; stroke: var(--gmp-tx); stroke-width: .8; opacity: .28; }
+.gmp-planeta text { font: 700 20px var(--gmp-mono); fill: var(--gmp-tx); letter-spacing: -.5px; }
+.gmp-txt { display: grid; gap: 2px; min-width: 0; padding-bottom: 3px; }
+.gmp-sub { font: 500 10.5px/1.3 var(--gmp-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--gmp-tx2); opacity: calc(1 - var(--gmp-p, 0) * 1.8); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gmp-nome { font: 600 clamp(22px, 3.2vw, 31px)/1.05 var(--gmp-serif); letter-spacing: -.012em; white-space: nowrap; display: flex; align-items: baseline; }
+.gmp-nome b { font-weight: 600; }
+.gmp-nome i { font-style: normal; display: inline-block; white-space: pre; overflow: hidden; max-width: calc((1 - var(--gmp-p, 0)) * 5.4em); opacity: calc(1 - var(--gmp-p, 0) * 1.5); }
+.gmp-nome .gmp-sec { font: 500 .52em/1 var(--gmp-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--gmp-tx2); margin-left: .7em; white-space: nowrap; }
+.gmp-dados { font: 400 12px/1.45 var(--gmp-mono); color: var(--gmp-tx2); text-align: right; padding-bottom: 3px; min-width: 0; display: grid; justify-items: end; gap: 3px; }
+.gmp-dados b { font-weight: 500; color: var(--gmp-tx); }
+/* números da edição: ficam visíveis com o cabeçalho encolhido */
+.gmp-hl { display: inline-block; padding: 2px 7px; background: var(--gmp-hl, rgba(11, 79, 138, .1)); color: var(--gmp-tx); font-weight: 500; border-radius: 2px; white-space: nowrap; }
+/* motor no ar: ponto verde piscando; vermelho se alguma etapa falhou, cinza sem dado */
+.gmp-on { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #0ca30c; margin-left: 6px; vertical-align: 1px; box-shadow: 0 0 0 2px rgba(12, 163, 12, .2); animation: gmp-pisca 1.8s ease-in-out infinite; font-style: normal; }
+.gmp-on.falhou { background: #d03b3b; box-shadow: 0 0 0 2px rgba(208, 59, 59, .22); }
+.gmp-on.off { background: var(--gmp-tx2); box-shadow: none; animation: none; opacity: .5; }
+@keyframes gmp-pisca { 50% { opacity: .25; } }
+@media (max-width: 720px) {
+  .gmp-linha { height: 82px; } .gmp { top: -56px; } :root { --gmp-fixo: 52px; }
+  .gmp-planeta { width: 54px; height: 54px; }
+  .gmp-dados { display: none; } .gmp-faixa .gmp-ed { display: none; }
+}
+@media (max-width: 720px) {
+  .gmp-faixa-in > span:first-child { display: none; }
+  .gmp-nome .gmp-sec { display: none; } .gmp-txt { min-width: 0; } .gmp-logo { max-width: 100%; }
+  .gmp-linha { position: relative; }
+  .gmp-dados { display: grid; position: absolute; right: 16px; bottom: 8px; font-size: 10px; opacity: var(--gmp-p, 0); pointer-events: none; }
+  .gmp-dados .gmp-dia { display: none; } .gmp-hl { white-space: nowrap; text-align: right; } .gmp-hl span { display: block; }
+}
+@media (prefers-reduced-motion: reduce) { .gmp-planeta, .gmp-nome i, .gmp-sub { transition: none; } .gmp-on { animation: none; } }
+
+@media (max-width: 640px) { .gmp-sub { white-space: normal; text-overflow: clip; font-size: 11px; line-height: 1.3; letter-spacing: .06em; } }
